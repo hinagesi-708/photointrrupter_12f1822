@@ -1,4 +1,3 @@
-
 /* 
  * File:   slave_for_photointrrupter_12f1822.c
  * Author: kayoko
@@ -13,7 +12,7 @@
  *                                          *
  *  use_port                                *
  *                __________                *
- *          Vdd---|1  ●   8|---Vss         *
+ *          Vdd---|1  ?   8|---Vss         *
  * (RA5)Ptint_2---|2       7|---Ptint_1(RA0)*
  *      (RA4)×---|3       6|---SCL(RA1)    *
  *      (RA3)×---|4       5|---SDA(RA2)    *
@@ -48,6 +47,11 @@ int main(void) {
     while (1) {
         if(RA0 == 0){
             count_time = 0;
+            while(RA5 == 0){
+                __delay_us(1);
+                count_time++;
+                if(count_time > 3000000000) break;
+            }
             while(RA5 == 1){
                 __delay_us(1);
                 count_time++;
